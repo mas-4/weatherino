@@ -25,12 +25,5 @@ jobs:
         known_hosts: ${{ secrets.THOR_HOST }}
     - name: Deploy
       run: |
-        # ssh-keyscan ${{ secrets.THOR_IP }} >> .ssh/known_hosts
-        ssh root@${{ secrets.THOR_IP }}
-        pwd
-        ls
-        cd ~/weatherino
-        git pull
-        cd server
-        source ./venv/bin/activate
-        python -m pip install -r requirements.txt
+        ssh root@${{ secrets.THOR_IP }} 'cd ~/weatherino && git pull'
+        ssh root@${{ secrets.THOR_IP }} 'source ~/weatherino/server/venv/bin/activate && python -m pip install -r ~/weatherino/server/requirements.txt'
