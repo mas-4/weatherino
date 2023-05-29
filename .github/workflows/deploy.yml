@@ -29,6 +29,6 @@ jobs:
         ssh thor@${{ secrets.THOR_IP }} 'cd ${{ secrets.SERVER_PATH }} && git pull'
         ssh thor@${{ secrets.THOR_IP }} '. ${{ secrets.SERVER_PATH }}/venv/bin/activate && python -m pip install -r ${{ secrets.SERVER_PATH }}/requirements.txt'
         scp server/config/gunicorn.service root@${{ secrets.THOR_IP }}:/etc/systemd/system/gunicorn.service
-        ssh root@${{ secrets.THOR_IP }} 'systemctl daemon-reload && systemctl start -u gunicorn'
+        ssh root@${{ secrets.THOR_IP }} 'systemctl daemon-reload && systemctl restart gunicorn'
         scp server/config/weatherino.nginx root@${{ secrets.THOR_IP }}:/etc/nginx/sites-available
         ssh root@${{ secrets.THOR_IP }} 'systemctl restart nginx'
