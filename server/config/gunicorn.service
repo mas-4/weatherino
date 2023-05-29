@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=thor
-Group=http
+Group=www-data
 WorkingDirectory=/weatherino/server
 Environment="PATH=/weatherino/server/venv"
 ExecStart=/weatherino/server/venv/bin/gunicorn --workers 3 --bind unix:weatherino.sock -m 007 app:app
