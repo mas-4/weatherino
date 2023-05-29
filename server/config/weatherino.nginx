@@ -1,0 +1,26 @@
+server {
+    server_name weather.standingwater.io;
+    location / {
+        include         proxy_params;
+        proxy_pass      http://unix:/weatherino/server/weatherino.sock;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/weather.standingwater.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/weather.standingwater.io/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = weather.standingwater.io) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name weather.standingwater.io;
+    return 404; # managed by Certbot
+
+
+}
