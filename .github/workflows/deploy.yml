@@ -1,0 +1,33 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  deployment:
+
+    runs-on: ubuntu-latest
+    environment: Thor Server
+
+    steps:
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.THOR_SSHKEY }}
+        name: id_rsa # optional
+        known_hosts: ${{ secrets.THOR_IP }}
+    - name: Deploy
+      run: |
+        ssh root@${{ secrets.THOR_IP }}
+        cd weatherino
+        git pull
+        cd server
+        source ./venv/bin/activate
+        python -m pip install -r requirements.txt
