@@ -27,7 +27,9 @@ jobs:
       run: |
         # ssh-keyscan ${{ secrets.THOR_IP }} >> .ssh/known_hosts
         ssh root@${{ secrets.THOR_IP }}
-        cd weatherino
+        pwd
+        ls
+        cd ~/weatherino
         git pull
         cd server
         source ./venv/bin/activate
