@@ -22,9 +22,10 @@ jobs:
       with:
         key: ${{ secrets.THOR_SSHKEY }}
         name: id_rsa # optional
+        known_hosts: ${{ secrets.THOR_HOST }}
     - name: Deploy
       run: |
-        ssh-keyscan ${{ secrets.THOR_IP }} >> .ssh/known_hosts
+        # ssh-keyscan ${{ secrets.THOR_IP }} >> .ssh/known_hosts
         ssh root@${{ secrets.THOR_IP }}
         cd weatherino
         git pull
