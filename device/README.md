@@ -25,3 +25,8 @@ Only 3 pins:
 https://docs.arduino.cc/learn/electronics/low-power
 
 https://learn.sparkfun.com/tutorials/reducing-arduino-power-consumption/all
+
+https://forum.arduino.cc/t/how-to-deep-sleep-for-more-than-8-seconds/624841
+
+https://www.gammon.com.au/forum/?id=11497
+http://www.gammon.com.au/power

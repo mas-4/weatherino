@@ -16,6 +16,7 @@
   See the LICENSE file for details.
  ***************************************************************************/
 
+#include <LowPower.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
@@ -63,8 +64,19 @@ void loop() {
     bme.takeForcedMeasurement(); // has no effect in normal mode
     
     printValues();
+    shutDown();
 }
 
+void shutDown() {
+  // 8S is the maximum power down sleep without a break out board
+  // 10 minutes is 75 * 8 s
+  for (int i = 0; i < 75; i++)
+  {
+    LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
+    Serial.print("Waking ");
+    Serial.println(i);
+  }
+}
 
 void printValues() {
     Serial.print("Temperature = ");
